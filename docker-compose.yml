@@ -1,0 +1,19 @@
+version: '3'
+services:
+  nvsmi:
+    restart: always
+    build: .
+    container_name: 'template'
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    working_dir: '/root/'
+    tty: true
+    volumes:
+      - ./opt:/root/opt
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
